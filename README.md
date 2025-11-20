@@ -5,3 +5,5 @@ To install the project, simply run `install.sh`. It will install the dependencie
 After that you can run `node ace queue:work` to start the queue worker.
 
 To see how job creation works, run `node ace inspire` to dispatch a job onto the `default` queue on the `main` connection. For more details, check out `config/queue.ts`, which has a list of registered jobs, connections and queues.
+
+![Queue worker showcase](https://github.com/user-attachments/assets/36763f77-0bbb-4700-9426-f6e03be71843)
