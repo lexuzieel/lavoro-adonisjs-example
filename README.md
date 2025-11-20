@@ -1,6 +1,6 @@
 This is an example AdonisJS project that uses the Lavoro library to enqueue background jobs.
 
-To install the project, simply run `install.sh`. It will install the dependencies, set up the project and bring up the database in a Docker container on a random port.
+To set up the project, simply run `install.sh`. It will install the dependencies, set up the project and bring up the database in a Docker container on a random port.
 
 After that you can run `node ace queue:work` to start the queue worker.
 
