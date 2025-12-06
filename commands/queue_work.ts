@@ -14,8 +14,15 @@ export default class QueueWork extends BaseCommand {
   }
 
   async prepare() {
-    // Explicitly enable worker mode
-    const config = { ...queueConfig, worker: true, logger: new Logger(logger) }
+    /**
+     * Here we override the queue service instance
+     * with the one configured for worker mode.
+     */
+    const config = {
+      ...queueConfig,
+      worker: true, // Explicitly enable worker mode
+      logger: new Logger(logger),
+    }
 
     const queue = new Queue(config)
     this.app.container.singleton('queue', () => queue)

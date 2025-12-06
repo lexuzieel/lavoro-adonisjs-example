@@ -1,16 +1,15 @@
 import env from '#start/env'
 import {
   defineConfig,
-  InferConnectionQueuesMap,
   InferConnections,
   InferDefaultConnection,
   InferQueueNames,
-  QueueConfig,
+  InferConnectionQueuesMap,
 } from 'lavoro'
 
 import { Inspire } from '#jobs/inspire'
 
-const queueConfig: QueueConfig = defineConfig({
+export const config = {
   jobs: [
     /*
      | Specify job classes here from the `jobs` directory here.
@@ -71,21 +70,29 @@ const queueConfig: QueueConfig = defineConfig({
         database: env.get('QUEUE_DB_DATABASE', env.get('DB_DATABASE')),
       },
     },
+    alternative: {
+      driver: 'memory',
+      queues: {
+        main: {
+          concurrency: 1,
+        },
+      },
+    },
   },
-})
+} as const
+
+const queueConfig = defineConfig(config)
+
+declare module 'lavoro' {
+  interface QueueConnections extends InferConnections<typeof config> {}
+
+  interface DefaultConnection {
+    name: InferDefaultConnection<typeof config>
+  }
+
+  interface QueuesList extends Record<InferQueueNames<typeof config>, never> {}
+
+  interface ConnectionQueuesMap extends InferConnectionQueuesMap<typeof config> {}
+}
 
 export default queueConfig
-
-declare module 'lavoro' {
-  export interface QueueConnections extends InferConnections<typeof queueConfig> {}
-
-  export interface DefaultConnection {
-    name: InferDefaultConnection<typeof queueConfig>
-  }
-}
-
-declare module 'lavoro' {
-  export interface QueuesList extends Record<InferQueueNames<typeof queueConfig>, never> {}
-
-  export interface ConnectionQueuesMap extends InferConnectionQueuesMap<typeof queueConfig> {}
-}
