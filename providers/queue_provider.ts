@@ -1,6 +1,6 @@
 import queueConfig from '#config/queue'
-import { Job, Logger } from 'lavoro'
-import { Queue } from 'lavoro'
+import { Job, Logger } from '@lavoro/core'
+import { Queue } from '@lavoro/core'
 import type { ApplicationService } from '@adonisjs/core/types'
 import logger from '@adonisjs/core/services/logger'
 

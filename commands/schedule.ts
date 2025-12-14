@@ -1,7 +1,7 @@
 import { BaseCommand } from '@adonisjs/core/ace'
 import { Inspire } from '#jobs/inspire'
 import { CommandOptions } from '@adonisjs/core/types/ace'
-import { Schedule } from 'lavoro'
+import { Schedule } from '@lavoro/core'
 
 export default class InspireCommand extends BaseCommand {
   static commandName = 'schedule'

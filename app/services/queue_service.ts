@@ -1,5 +1,5 @@
 import app from '@adonisjs/core/services/app'
-import { Queue } from 'lavoro'
+import { Queue } from '@lavoro/core'
 
 let queue: Queue
 

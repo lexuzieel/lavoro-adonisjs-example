@@ -1,11 +1,13 @@
+import { postgres } from '@lavoro/postgres'
+import { memory } from '@lavoro/memory'
 import env from '#start/env'
 import {
   defineConfig,
-  InferConnections,
-  InferDefaultConnection,
-  InferQueueNames,
-  InferConnectionQueuesMap,
-} from 'lavoro'
+  type InferConnections,
+  type InferDefaultConnection,
+  type InferQueueNames,
+  type InferConnectionQueues,
+} from '@lavoro/core'
 
 import { Inspire } from '#jobs/inspire'
 
@@ -42,7 +44,13 @@ export const config = {
   */
   connections: {
     main: {
-      driver: 'postgres',
+      driver: postgres({
+        host: env.get('QUEUE_DB_HOST', env.get('DB_HOST')),
+        port: env.get('QUEUE_DB_PORT', env.get('DB_PORT', '5432')),
+        user: env.get('QUEUE_DB_USER', env.get('DB_USER')),
+        password: env.get('QUEUE_DB_PASSWORD', env.get('DB_PASSWORD', '')),
+        database: env.get('QUEUE_DB_DATABASE', env.get('DB_DATABASE')),
+      }),
       queues: {
         /*
         |--------------------------------------------------------------------------
@@ -62,16 +70,9 @@ export const config = {
           concurrency: 3,
         },
       },
-      config: {
-        host: env.get('QUEUE_DB_HOST', env.get('DB_HOST')),
-        port: env.get('QUEUE_DB_PORT', env.get('DB_PORT', '5432')),
-        user: env.get('QUEUE_DB_USER', env.get('DB_USER')),
-        password: env.get('QUEUE_DB_PASSWORD', env.get('DB_PASSWORD', '')),
-        database: env.get('QUEUE_DB_DATABASE', env.get('DB_DATABASE')),
-      },
     },
     alternative: {
-      driver: 'memory',
+      driver: memory(),
       queues: {
         main: {
           concurrency: 1,
@@ -83,16 +84,13 @@ export const config = {
 
 const queueConfig = defineConfig(config)
 
-declare module 'lavoro' {
-  interface QueueConnections extends InferConnections<typeof config> {}
-
+declare module '@lavoro/core' {
+  interface QueueList extends InferQueueNames<typeof config> {}
   interface DefaultConnection {
     name: InferDefaultConnection<typeof config>
   }
-
-  interface QueuesList extends Record<InferQueueNames<typeof config>, never> {}
-
-  interface ConnectionQueuesMap extends InferConnectionQueuesMap<typeof config> {}
+  interface QueueConnections extends InferConnections<typeof config> {}
+  interface ConnectionQueues extends InferConnectionQueues<typeof config> {}
 }
 
 export default queueConfig

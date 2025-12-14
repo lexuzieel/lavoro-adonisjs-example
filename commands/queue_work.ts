@@ -1,5 +1,5 @@
 import queueConfig from '#config/queue'
-import { Job, Queue, Logger } from 'lavoro'
+import { Job, Queue, Logger } from '@lavoro/core'
 import { BaseCommand } from '@adonisjs/core/ace'
 import type { CommandOptions } from '@adonisjs/core/types/ace'
 import logger from '@adonisjs/core/services/logger'

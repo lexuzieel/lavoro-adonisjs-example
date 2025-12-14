@@ -1,4 +1,4 @@
-import { Schedule } from 'lavoro'
+import { Schedule } from '@lavoro/core'
 import { Inspire } from '#jobs/inspire'
 
 async function test() {

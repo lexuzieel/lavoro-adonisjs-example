@@ -1,4 +1,4 @@
-import { Job } from 'lavoro'
+import { Job } from '@lavoro/core'
 import logger from '@adonisjs/core/services/logger'
 
 export class Inspire extends Job {

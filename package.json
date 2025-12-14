@@ -1,9 +1,10 @@
 {
-  "name": "sample-app",
-  "version": "0.0.0",
+  "name": "lavoro-adonisjs-example",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "license": "UNLICENSED",
+  "author": "Aleksei Ivanov <contact@aleksei.dev>",
+  "license": "MIT",
   "scripts": {
     "start": "node bin/server.js",
     "build": "node ace build",
@@ -51,7 +52,9 @@
   },
   "dependencies": {
     "@adonisjs/core": "^6.18.0",
-    "lavoro": "^0.2.2",
+    "@lavoro/memory": "^0.3.1",
+    "@lavoro/postgres": "^0.3.1",
+    "pino": "^10.1.0",
     "reflect-metadata": "^0.2.2"
   },
   "hotHook": {
