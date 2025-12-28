@@ -52,8 +52,8 @@
   },
   "dependencies": {
     "@adonisjs/core": "^6.18.0",
-    "@lavoro/memory": "^0.3.1",
-    "@lavoro/postgres": "^0.3.1",
+    "@lavoro/memory": "^0.4.2",
+    "@lavoro/postgres": "^0.4.2",
     "pino": "^10.1.0",
     "reflect-metadata": "^0.2.2"
   },
